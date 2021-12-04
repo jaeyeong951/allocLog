@@ -1,16 +1,13 @@
 module.exports = {
-  title: `Bee starter`,
+  title: `AllocProc`,
   description: `Blog posted about ...`,
-  author: `[Your Name]`,
+  author: `Jaeyeong`,
   introduction: `I explain with words and code. I explain with words and code. I explain with words and code.`,
   siteUrl: `https://allocproc.netlify.app/`, // Your blog site url
   social: {
-    twitter: ``, // Your Twitter account
     github: ``, // Your GitHub account
     medium: ``, // Your Medium account
-    facebook: ``, // Your Facebook account
     linkedin: ``, // Your LinkedIn account
-    instagram: ``, // Your Instagram account
   },
   icon: `content/assets/felog.png`, // Add your favicon
   keywords: [`blog`],
