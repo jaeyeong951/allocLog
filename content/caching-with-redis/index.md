@@ -88,8 +88,8 @@ DB 에 쓰기작업의 횟수를 최소화하여 퍼포먼스의 향상을 가�
 ### String
 
 -   기본 사용법  
-    Set <key> <value>  
-    Get <key>
+    Set [key] [value]  
+    Get [key]
 -   mset, mget 한번에 여러개 처리
 -   Set Token:1234567 abcdefg
 -   Get Token:1234567
@@ -99,36 +99,36 @@ DB 에 쓰기작업의 횟수를 최소화하여 퍼포먼스의 향상을 가�
 
 ### List
 
--   Lpush <key> <A>
--   Rpush <key> <B>
--   Lpop, Rpop <key>
+-   Lpush [key] [A]
+-   Rpush [key] [B]
+-   Lpop, Rpop [key]
 -   BLpop → 데이터가 push 되기까지 대기
 -   JobQueue 의 경우 List 를 많이 쓴다.
 
 ### Set
 
--   SADD <key> <value>  
+-   SADD [key] [value]  
     value 가 이미 해당 Key 에 있으면 추가되지 않는다.
--   SMEMBERS <key>  
+-   SMEMBERS [key]  
     해당 key의 모든 value를 돌려줌
--   SISMEMBER <key> <value>  
+-   SISMEMBER [key] [value]  
     value가 존재하면 1, 아니면 0
 
 ### Sorted Set
 
--   ZADD <key> <score> <member>  
+-   ZADD [key] [score] [member]  
     member 가 key, score 가 value 의 역할을 한다고 생각하면 된다.  
     score 값을 기준으로 각 원소들이 순서를 가지게 된다.
 -   Set 이기 때문에 member 는 unique 하고, member 값을 통해 O(1) 로 원하는 원소에 바로 접근할 수 있다.
 -   **Sorted Set 의 score는 실수형(double)임에 유의하자.**
--   ZSCORE <key> <member>  
+-   ZSCORE [key] [member]  
     해당 member 의 score 조회
--   ZRANK <key> <member>  
+-   ZRANK [key] [member]  
     해당 member 의 rank(몇 번째인지) 조회
--   ZRANGE <key> <start> <stop>  
+-   ZRANGE [key] [start] [stop]  
     정렬된 원소 중 내가 원하는 범위만큼만 출력한다.  
     첫번째 원소를 0이라 했을 때의 상대적인 위치값이고, 양수/음수 모두 가능하다.
--   ZRANGE <key> 0 -1  
+-   ZRANGE [key] 0 -1  
     해당 key의 모든 member 출력
 -   0 0 → 가장 낮은 멤버, 1 1 → 가장 높은 멤버
 -   순서를 반대로 하고싶은 경우 ZREVRANGE 사용
@@ -141,10 +141,10 @@ DB 에 쓰기작업의 횟수를 최소화하여 퍼포먼스의 향상을 가�
 -   RDB의 table과 비슷하다.
 -   key는 table의 PK, field는 column, value는 value로 보면 된다.
 -   해당 key에 어떤 Collection 자체를 저장한다고 생각해도 된다.
--   HMSET <key> <subkey1> <value1> <subkey2> …
--   HGETALL <key>  
+-   HMSET [key] [subkey1] [value1] [subkey2] …
+-   HGETALL [key]  
     해당 key의 모든 subkey 와 value 를 가져옴
--   HGET <key> <subkey>
+-   HGET [key] [subkey]
 
 ### Redis에서 Collection 사용 시 주의사항
 
