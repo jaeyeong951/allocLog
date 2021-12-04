@@ -24,9 +24,9 @@ export const Bio = () => (
               />
               <div className="author-name">
                 <span className="author-name-prefix">Written by</span>
-                <Link to={'/about'} className="author-name-content">
+                <a href={'https://pnujaeyeong.notion.site/Junior-Software-Engineer-79d4c17f50c34a3091f46152fa7e5f4b'} className="author-name-content">
                   <span>@{author}</span>
-                </Link>
+                </a>
                 <div className="author-introduction">{introduction}</div>
                 <p className="author-socials">
                   {social.instagram && (
