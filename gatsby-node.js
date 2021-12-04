@@ -1,55 +1,80 @@
-exports.createSchemaCustomization = ({ actions }) => {
-  const { createTypes } = actions
-  const typeDefs = `
-    type Mdx implements Node {
-      frontmatter: Frontmatter
-      fields: MediumMdxFields
-    }
-    type Frontmatter {
-      title: String
-      description: String
-      date: Date @dateformat
-      published: Boolean
-      canonical_link: String
-      categories: [String]
-      redirect_from: [String]
-      redirect_to: [String]
-    }
-    type MediumMdxFields {
-      slug: String
-      published: Boolean
+const path = require(`path`)
+const { createFilePath } = require(`gatsby-source-filesystem`)
+
+exports.createPages = ({ graphql, actions }) => {
+  const { createPage } = actions
+
+  const blogPostTemplate = path.resolve(`./src/templates/blog-post.js`)
+
+  return graphql(
+    `
+      {
+        allMarkdownRemark(
+          filter: { frontmatter: { category: { ne: null }, draft: { eq: false } } }
+          sort: { fields: [frontmatter___date], order: DESC }
+          limit: 1000
+        ) {
+          edges {
+            node {
+              fields {
+                slug
+              }
+              frontmatter {
+                title
+                category
+              }
+            }
+            previous {
+              fields {
+                slug
+              }
+              frontmatter {
+                title
+              }
+            }
+            next {
+              fields {
+                slug
+              }
+              frontmatter {
+                title
+              }
+            }
+          }
+        }
+      }
+    `
+  ).then(result => {
+    if (result.errors) {
+      throw result.errors
     }
 
-    type WebMentionEntry implements Node {
-      type: String
-      author: WebMentionAuthor
-      content: WebMentionContent
-      url: String
-      published: Date @dateformat
-      wmReceived: Date @dateformat
-      wmId: Int
-      wmPrivate: Boolean
-      wmTarget: String
-      wmSource: String
-      wmProperty: String
-      likeOf: String
-      mentionOf: String
-      inReplyTo: String
-      repostOf: String
-      bookmarkOf: String
-      rsvp: String
-      video: [String]
-    }
-    type WebMentionAuthor {
-      type: String
-      name: String
-      url: String
-      photo: String
-    }
-    type WebMentionContent {
-      text: String
-      html: String
-    }
-  `
-  createTypes(typeDefs)
+    // Create blog posts pages.
+    const posts = result.data.allMarkdownRemark.edges;
+    posts.forEach((post) => {
+      createPage({
+        path: post.node.fields.slug,
+        component: blogPostTemplate,
+        context: {
+          slug: post.node.fields.slug,
+          previous: post.next,
+          next: post.previous,
+        },
+      })
+    })
+  })
+}
+
+exports.onCreateNode = ({ node, actions, getNode }) => {
+  const { createNodeField } = actions
+
+  if (node.internal.type === `MarkdownRemark`) {
+    const value = createFilePath({ node, getNode })
+
+    createNodeField({
+      name: `slug`,
+      node,
+      value,
+    })
+  }
 }
