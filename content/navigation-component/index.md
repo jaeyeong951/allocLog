@@ -36,7 +36,7 @@ Frag\_2에서 Frag\_1으로 결과값을 넘겨주는 동작은 다음과 같은
 1.  Frag\_2를 pop한다.
 2.  SavedStateHandle로 key와 result 값을 set해준다.
 3.  Frag\_2가 pop되었으니 stack의 맨 위인 Frag\_1이 다시 실행된다.
-4.  Frag\_1은 SavedStateHandle의 getLiveData<T>(key) 메소드를 통해 Frag\_2가 set한 result값을 observe 가능하다!
+4.  Frag\_1은 SavedStateHandle의 `getLiveData<T>(key)` 메소드를 통해 Frag\_2가 set한 result값을 observe 가능하다!
 
 코드로 조금 더 자세히 살펴보겠습니다.
 
@@ -44,7 +44,7 @@ Frag\_2는 위와 같이 previousBackStackEntry로 자기 바로 전의 back sta
 
 그리고 savedStateHandle.set() 메소드로 전달하고싶은 key와 result 값을 씁니다.
 
-Frag\_1은 위 처럼 currentBackStackEntry로 자기 자신의 stack에 접근하고 savedStateHandle?.getLiveData<T>(key) 메소드로 해당 key의 result 값을 가지고 있는 LiveData에 접근하여 observe 합니다.
+Frag\_1은 위 처럼 currentBackStackEntry로 자기 자신의 stack에 접근하고 `savedStateHandle?.getLiveData<T>(key)` 메소드로 해당 key의 result 값을 가지고 있는 LiveData에 접근하여 observe 합니다.
 
 간단히 정리하면 다음과 같습니다. 지저분하지만 양해 바랍니다.
 
