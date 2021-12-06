@@ -24,7 +24,7 @@ export const Category = ({ categories, category, selectCategory }) => {
       role="tablist"
       id="category"
       style={{
-        margin: `0 -${rhythm(3 / 4)}`,
+        margin: `0 0`,
       }}
     >
       <Item title={'All'} selectedCategory={category} onClick={selectCategory} scrollToCenter={scrollToCenter} />

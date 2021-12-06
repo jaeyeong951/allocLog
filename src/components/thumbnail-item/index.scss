@@ -1,13 +1,20 @@
 @import '../../styles/variables.scss';
 
 .thumbnail {
-  display: block;
+  position: relative;
+  display: inline-block;
+  padding-top: 12px;
   margin-bottom: 12px;
-  padding: 4px;
+  padding-left: 18px;
+  margin-left: -18px;
+  padding-right: 18px;
+  margin-right: -18px;
   padding-bottom: 12px;
-  box-shadow: none;
   transition: text-shadow 0.3s, opacity 0.4s;
   opacity: 0;
+
+  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 
   p {
     font-size: 90%;
